@@ -1,6 +1,6 @@
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    id("io.micronaut.application") version "3.4.1"
+    id("io.micronaut.minimal.application") version "3.4.1"
 }
 
 version = "0.1"
@@ -15,11 +15,14 @@ dependencies {
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut.problem:micronaut-problem-json")
-    //implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("jakarta.annotation:jakarta.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
-    implementation("io.micronaut:micronaut-validation")
+    testAnnotationProcessor("io.micronaut:micronaut-inject-java")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("io.micronaut.test:micronaut-test-junit5:3.3.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    implementation 'org.skyscreamer:jsonassert:1.5.0'
 
 }
 
@@ -28,8 +31,8 @@ application {
     mainClass.set("com.edeesis.Application")
 }
 java {
-    sourceCompatibility = JavaVersion.toVersion("11")
-    targetCompatibility = JavaVersion.toVersion("11")
+    sourceCompatibility = JavaVersion.VERSION_15
+    targetCompatibility = JavaVersion.VERSION_15
 }
 
 tasks {
@@ -40,7 +43,6 @@ tasks {
     }
 }
 
-graalvmNative.toolchainDetection = false
 micronaut {
     runtime("netty")
     testRuntime("junit5")
