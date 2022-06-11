@@ -1,0 +1,9 @@
+micronaut:
+  application:
+    name: problemSerdeExample
+  server:
+    log-handled-exceptions: true
+netty:
+  default:
+    allocator:
+      max-order: 3

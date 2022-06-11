@@ -1,0 +1,6 @@
+
+rootProject.name="problem-serde-example"
+include 'jackson'
+include 'micronaut-serde'
+include 'micronaut-serde'
+
