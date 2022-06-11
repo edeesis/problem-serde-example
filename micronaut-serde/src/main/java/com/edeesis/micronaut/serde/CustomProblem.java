@@ -3,8 +3,10 @@ package com.edeesis.micronaut.serde;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.problem.HttpStatusType;
+import io.micronaut.serde.annotation.Serdeable;
 import org.zalando.problem.AbstractThrowableProblem;
 
+@Serdeable
 public class CustomProblem extends AbstractThrowableProblem {
     @JsonProperty
     private final String field;

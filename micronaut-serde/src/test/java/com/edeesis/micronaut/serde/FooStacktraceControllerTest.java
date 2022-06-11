@@ -1,4 +1,4 @@
-package com.edeesis.micronaut.jackson;
+package com.edeesis.micronaut.serde;
 
 import com.jayway.jsonpath.JsonPath;
 import io.micronaut.core.type.Argument;
@@ -11,11 +11,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-@MicronautTest
-public class FooControllerTest {
+@MicronautTest(environments = "stacktrace")
+public class FooStacktraceControllerTest {
     private final HttpClient httpClient;
 
-    public FooControllerTest(@Client("/") HttpClient httpClient) {
+    public FooStacktraceControllerTest(@Client("/") HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
@@ -26,5 +26,8 @@ public class FooControllerTest {
         assertNotNull(JsonPath.parse(response).read("$.type"));
         assertEquals("Internal Server Error", JsonPath.parse(response).read("$.title", String.class));
         assertEquals(500, JsonPath.parse(response).read("$.status", Integer.class));
+        assertNotNull(JsonPath.parse(response).read("$.localizedMessage"));
+        assertNotNull(JsonPath.parse(response).read("$.message"));
+        assertNotNull(JsonPath.parse(response).read("$.stackTrace"));
     }
 }
